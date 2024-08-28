@@ -4,7 +4,7 @@ import elf.parallel as parallel
 import numpy as np
 
 from skimage.transform import rescale, resize
-from util import get_prediction_torch_em
+from synaptic_reconstruction.inference.util import get_prediction_torch_em
 
 DEFAULT_TILING = {
     "tile": {"x": 512, "y": 512, "z": 64},
