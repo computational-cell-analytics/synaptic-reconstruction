@@ -4,9 +4,10 @@ import argparse
 from glob import glob
 from tqdm import tqdm
 import imageio.v3 as iio
-import mrcfile
+
 import numpy as np
 import napari
+from elf.io import open_file
 
 
 def visualize_segmentation(args):
@@ -14,8 +15,8 @@ def visualize_segmentation(args):
     seg = None
     seg2 = None
     if args.image_path != "" and os.path.exists(args.image_path):
-        with mrcfile.open(args.image_path) as f:
-            img = f.data
+        with open_file(args.image_path, "r") as f:
+            img = f["data"][:]
     else:
         raise Exception(f"Image path not found {args.image_path}")
     if args.segmentation_path != "" and os.path.exists(args.segmentation_path):
@@ -41,15 +42,15 @@ def main():
     parser = argparse.ArgumentParser(description="Segment mitochodria")
     parser.add_argument(
         "--image_path", "-i", default="",
-        help="The path to file containing the image/raw data."
+        help="The path to the .mrc file containing the image/raw data."
     )
     parser.add_argument(
         "--segmentation_path", "-s", default="",
-        help="The path to the file containing the segmentation data. e.g. mitochondria"
+        help="The path to the .tif file containing the segmentation data. e.g. mitochondria"
     )
     parser.add_argument(
         "--second_segmentation_path", "-ss", default="",
-        help="A second path to the file containing the segmentation data. e.g. cristae"
+        help="A second path to the .tif file containing the segmentation data. e.g. cristae"
     )
 
     args = parser.parse_args()
