@@ -3,7 +3,6 @@ from pathlib import Path
 import argparse
 from glob import glob
 from tqdm import tqdm
-from torch_em.transform.raw import standardize
 from synaptic_reconstruction.inference.cristae import segment_cristae
 import imageio.v3 as iio
 import mrcfile
@@ -55,7 +54,7 @@ def run_cristae_segmentation(args):
         with iio.imopen(mito_path, "r") as f:
             mito_img = f.read()
         mito_img = np.where(mito_img > 0, 1, 0).astype(np.float32)
-        img = standardize(img).astype(np.float32)
+        img = img.astype(np.float32)
         stacked_img = np.stack((img, mito_img), axis=0)
         # np.stack((img, mitochondria_mask), axis=0)
         seg = segment_cristae(stacked_img, model_path)
