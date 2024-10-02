@@ -129,7 +129,7 @@ def fit_a_spline_2d(tomo, vesicles, pred):
     print("Done")
 
     import matplotlib.pyplot as plt
-    plt.imshow(x)
+    plt.imshow(p)
 
     plt.scatter(initial1[:, 1], initial1[:, 0], marker="x", color="black", label="initial knots")
     plt.scatter(spline1[:, 1], spline1[:, 0], marker="o", label="spline")
