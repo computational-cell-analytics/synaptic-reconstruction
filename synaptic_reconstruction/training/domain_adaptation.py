@@ -26,6 +26,7 @@ def mean_teacher_adaptation(
     n_iterations: int = int(1e4),
     n_samples_train: Optional[int] = None,
     n_samples_val: Optional[int] = None,
+    sampler: Optional[callable] = None,
 ):
     """Run domain adapation to transfer a network trained on a source domain for a supervised
     segmentation task to perform this task on a different target domain.
@@ -138,5 +139,6 @@ def mean_teacher_adaptation(
         device=device,
         reinit_teacher=reinit_teacher,
         save_root=save_root,
+        sampler=sampler,
     )
     trainer.fit(n_iterations)
